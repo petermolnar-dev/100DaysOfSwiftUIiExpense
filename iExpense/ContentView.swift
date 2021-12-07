@@ -7,46 +7,46 @@
 
 import SwiftUI
 
-class User: ObservableObject {
-    @Published var firstName = "Bilbo"
-    @Published var lastName = "Baggins"
+struct ExpenseItem {
+    let name: String
+    let type: String
+    let amount: Double
+}
+
+class Expenses: ObservableObject {
+    @Published var items = [ExpenseItem]()
 }
 
 struct ContentView: View {
-    @StateObject private var user = User()
-    @State private var showingSheet = false
+ 
+    @StateObject var expenses = Expenses()
     
     var body: some View {
-        VStack {
-            Button("Show Sheet") {
-                showingSheet.toggle()
+        NavigationView {
+            List {
+                ForEach(expenses.items, id: \.name) { item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
             }
-            .sheet(isPresented: $showingSheet) {
-                SecondView(name: "Peter")
+            .navigationTitle("iExpense")
+            .toolbar {
+                Button {
+                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
+                    expenses.items.append(expense)
+                } label: {
+                    Image(systemName: "plus")
+                }
             }
-            Divider()
-            Text("Your name is \(user.firstName) \(user.lastName).")
-            
-            TextField("First Name", text: $user.firstName)
-            TextField("Last Name", text: $user.lastName)
         }
+    }
+    
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
     }
 }
 
-struct SecondView: View {
-    let name: String
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        VStack {
-            Text("Hello \(name)")
-            Divider()
-            Button("Dismiss") {
-                dismiss()
-            }
-        }
-    }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
