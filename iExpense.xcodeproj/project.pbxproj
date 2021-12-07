@@ -14,6 +14,7 @@
 		C704FEF1275BBD22004CE7AD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704FEF0275BBD22004CE7AD /* TestView.swift */; };
 		C704FEF3275BBF16004CE7AD /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704FEF2275BBF16004CE7AD /* UserDefaults.swift */; };
 		C704FEF5275E860B004CE7AD /* SheetShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704FEF4275E860B004CE7AD /* SheetShowView.swift */; };
+		C704FEF7275FC8F9004CE7AD /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704FEF6275FC8F9004CE7AD /* AddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		C704FEF0275BBD22004CE7AD /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		C704FEF2275BBF16004CE7AD /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C704FEF4275E860B004CE7AD /* SheetShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetShowView.swift; sourceTree = "<group>"; };
+		C704FEF6275FC8F9004CE7AD /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				C704FEDC275545AD004CE7AD /* iExpenseApp.swift */,
 				C704FEDE275545AD004CE7AD /* ContentView.swift */,
+				C704FEF6275FC8F9004CE7AD /* AddView.swift */,
 				C704FEF4275E860B004CE7AD /* SheetShowView.swift */,
 				C704FEF0275BBD22004CE7AD /* TestView.swift */,
 				C704FEF2275BBF16004CE7AD /* UserDefaults.swift */,
@@ -148,6 +151,7 @@
 			files = (
 				C704FEF3275BBF16004CE7AD /* UserDefaults.swift in Sources */,
 				C704FEF1275BBD22004CE7AD /* TestView.swift in Sources */,
+				C704FEF7275FC8F9004CE7AD /* AddView.swift in Sources */,
 				C704FEDF275545AD004CE7AD /* ContentView.swift in Sources */,
 				C704FEF5275E860B004CE7AD /* SheetShowView.swift in Sources */,
 				C704FEDD275545AD004CE7AD /* iExpenseApp.swift in Sources */,
