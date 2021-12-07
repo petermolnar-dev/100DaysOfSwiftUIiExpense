@@ -6,20 +6,38 @@
 //
 
 import SwiftUI
+import Foundation
 
-struct ExpenseItem: Identifiable {
-    let id = UUID()
+struct ExpenseItem: Identifiable, Codable {
+    var id = UUID()
     let name: String
     let type: String
     let amount: Double
 }
 
 class Expenses: ObservableObject {
-    @Published var items = [ExpenseItem]()
+    
+    init() {
+        if let savedItmes = Foundation.UserDefaults.standard.data(forKey: "Items") {
+            if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItmes) {
+                items = decodedItems
+                return
+            }
+        }
+        items = []
+    }
+    
+    @Published var items = [ExpenseItem]() {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(items) {
+                Foundation.UserDefaults.standard.set(encoded, forKey: "Items")
+            }
+        }
+    }
 }
 
 struct ContentView: View {
- 
+    // It is state object, because the view owns it.
     @StateObject var expenses = Expenses()
     @State private var showingAddExpense = false
     
