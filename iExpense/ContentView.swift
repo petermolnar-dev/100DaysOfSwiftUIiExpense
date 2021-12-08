@@ -44,20 +44,39 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(expenses.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                Section(header: Text("Personal")){
+                    ForEach(expenses.items.filter({$0.type == "Personal"})) { item in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                                .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
                         }
-                        Spacer()
-                        Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                            .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
+                        
                     }
-                    
+                    .onDelete(perform: removeItems)
                 }
-                .onDelete(perform: removeItems)
+                
+                Section(header: Text("Business")){
+                    ForEach(expenses.items.filter({$0.type == "Business"})) { item in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                                .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
+                        }
+                        
+                    }
+                    .onDelete(perform: removeItems)
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -76,6 +95,7 @@ struct ContentView: View {
     func removeItems(at offsets: IndexSet) {
         expenses.items.remove(atOffsets: offsets)
     }
+       
 }
 
 
