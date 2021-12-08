@@ -53,6 +53,7 @@ struct ContentView: View {
                         }
                         Spacer()
                         Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                            .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
                     }
                     
                 }
