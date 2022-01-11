@@ -18,8 +18,8 @@ struct ExpenseItem: Identifiable, Codable {
 class Expenses: ObservableObject {
     
     init() {
-        if let savedItmes = Foundation.UserDefaults.standard.data(forKey: "Items") {
-            if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItmes) {
+        if let savedItems = Foundation.UserDefaults.standard.data(forKey: "Items") {
+            if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItems) {
                 items = decodedItems
                 return
             }
@@ -75,7 +75,7 @@ struct ContentView: View {
                         }
                         
                     }
-                    .onDelete(perform: removeItems)
+                    .onDelete(perform: removeBusinessItems)
                 }
             }
             .navigationTitle("iExpense")
@@ -95,7 +95,15 @@ struct ContentView: View {
     func removeItems(at offsets: IndexSet) {
         expenses.items.remove(atOffsets: offsets)
     }
-       
+    
+    func removeBusinessItems(at offsets: IndexSet) {
+        // FIXME: This is not working for sure :/
+        offsets.forEach { index in
+            print("Index: \(index)")
+        }
+        expenses.items.remove(atOffsets: offsets)
+    }
+    
 }
 
 
