@@ -36,6 +36,27 @@ class Expenses: ObservableObject {
     }
 }
 
+struct ExpenseItemView: View {
+    
+    let item: ExpenseItem
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(item.name)
+                    .font(.headline)
+                Text(item.type)
+            }
+            Spacer()
+            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibility(hint: Text("Expense type:" + item.type))
+        .accessibility(label: Text("Expense \(item.name) valued as \(String(format: "%.2f", item.amount)) \(Locale.current.currencyCode ?? "USD")"))
+    }
+}
+
 struct ContentView: View {
     // It is state object, because the view owns it.
     @StateObject var expenses = Expenses()
@@ -46,34 +67,14 @@ struct ContentView: View {
             List {
                 Section(header: Text("Personal")){
                     ForEach(expenses.items.filter({$0.type == "Personal"})) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            Spacer()
-                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                                .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
-                        }
-                        
+                        ExpenseItemView(item: item)
                     }
                     .onDelete(perform: removeItems)
                 }
                 
                 Section(header: Text("Business")){
                     ForEach(expenses.items.filter({$0.type == "Business"})) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            Spacer()
-                            Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                                .fontWeight(item.amount < 10 ? .light : item.amount < 100 ? .medium :  .heavy)
-                        }
-                        
+                        ExpenseItemView(item: item)
                     }
                     .onDelete(perform: removeBusinessItems)
                 }
